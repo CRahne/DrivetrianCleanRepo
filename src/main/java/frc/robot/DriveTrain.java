@@ -1,84 +1,101 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-public class Robot extends TimedRobot {
-  public static WPI_TalonSRX DTL1 = new WPI_TalonSRX(4);
-  public static WPI_TalonSRX DTL2 = new WPI_TalonSRX(5);
-  public static WPI_TalonSRX DTR1 = new WPI_TalonSRX(1);
-  public static WPI_TalonSRX DTR2 = new WPI_TalonSRX(2);
+enum ControlState 
+{ 
+  TELEOP, AUTO, NULL;
+}
 
-  public static SpeedControllerGroup DTR = new SpeedControllerGroup(DTR1, DTR2);
-  public static SpeedControllerGroup DTL = new SpeedControllerGroup(DTL1, DTL2);
+/**
+ * Add your docs here.
+ */
+public class DriveTrain extends Subsystem {
+  private static DifferentialDrive Drive = Robot.Drive;
+  private static Encoder DTRE = Robot.DTRE;
+  private static Encoder DTLE = Robot.DTLE;
+  private static AHRS gyro = Robot.gyro;
 
-  public static DifferentialDrive Drive = new DifferentialDrive(DTL, DTR);
+  private ControlState ctrlstate;
 
-  public static defAuto defAuto = new defAuto();
-
-  // public static AHRS gyro = new AHRS(Port.kMXP); // FIX
-
-  // public static Encoder DTRE = new Encoder(1, 2); // FIX
-  // public static Encoder DTLE = new Encoder(2, 4); // FIX
-
-  public static Joystick OPStick = new Joystick(0);
-  // public static JoystickButton ctrl_handler = new JoystickButton(OPStick, 2);
-
-  private ControlState AUTO = ControlState.AUTO;
-  private ControlState NULL = ControlState.NULL;
-  private ControlState TELEOP = ControlState.TELEOP;
-
-  public DriveTrain DT = new DriveTrain(NULL);
-
-  public void robotInit() {
-    DT.setCTRL(TELEOP);
-    // ctrl_handler.whenPressed(new StateChange());
-  }
-
-  public void teleopInit() {
-  }
-  public void teleopPeriodic()
+  public DriveTrain(ControlState ctrlstate)
   {
-
+    this.ctrlstate = ctrlstate;
   }
-  public void autonomousPeriodic()
+
+  public static void OPDRIVE(Joystick stick)
   {
-
+    Drive.tankDrive(stick.getX(), stick.getY());
   }
-  public void autonomousInit() {
+
+  public void setCTRL(ControlState ctrl)
+  {
+    this.ctrlstate = ctrl;
+  }
+
+  public static void defaultAuto()
+  {
+    Drive.tankDrive(0.5, 0.5);
+    Timer.delay(3);
+    Drive.tankDrive(0.0, 0.0);
+  }
+
+  public void switchDT()
+  {
+    switch(ctrlstate)
+    {
+      case TELEOP:
+        System.out.println("TeleOp enabled");
+        break;
+      case AUTO:
+        System.out.println("Autonomous Driving Enabled");
+        break;
+      default:
+        System.out.println("TeleOp enabled");
+        break;
+    }
+  }
+
+  public ControlState getControlState()
+  {
+    return this.ctrlstate;
+  }
+
+  public void ChangeState()
+  {
+    if(this.ctrlstate == ControlState.AUTO)
+    {
+      this.ctrlstate = ControlState.TELEOP;
+    }
+    else if(this.ctrlstate == ControlState.TELEOP)
+    {
+      this.ctrlstate = ControlState.AUTO;
+    }
+    else
+    {
+      this.ctrlstate = ControlState.NULL;
+    }
+  }
+
+  public Boolean isAuto()
+  {
+    return (ctrlstate == ControlState.AUTO);
+  }
+
+  public Boolean isTeleOp()
+  {
+    return (ctrlstate == ControlState.TELEOP);
   }
 
   @Override
-  public void robotPeriodic() {
-    if(OPStick.getRawButton(2))
-    {
-      if(DT.getControlState() == TELEOP)
-      {
-        DT.setCTRL(AUTO);
-      }
-      else if(DT.getControlState() == AUTO)
-      {
-        DT.setCTRL(TELEOP);
-      }
-    }
-    switch(DT.getControlState())
-    {
-      case AUTO:
-        // DT.defaultAuto();
-        defAuto.start();
-        break;
-      case TELEOP:
-        DT.OPDRIVE(OPStick);
-        break;
-      default:
-        // teleopInit();
-        break;
-    }
-    System.out.println(DT.getControlState());
-    // SmartDashboard.putData(DT.getControlState());
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
   }
 }
