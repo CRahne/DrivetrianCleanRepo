@@ -1,81 +1,63 @@
 package frc.robot;
 
-public class Robot1 implements RoboticState{
+public class Robot1 implements RobotCtrlState{
 
-	private RoboticState roboticOn;
-	private RoboticState roboticCook;
-	private RoboticState roboticOff;
-	private RoboticState roboticStandby;
+	private RobotCtrlState teleOp;
+	private RobotCtrlState Auto;
+	private RobotCtrlState roboticStandby;
 	
-	private RoboticState state;
+	private RobotCtrlState state;
 	
 	public Robot1(){
-		this.roboticOn = new RoboticOn(this);
-		this.roboticCook = new RoboticCook(this);
-		this.roboticOff = new RoboticOff(this);
+		this.teleOp = new teleOp(this);
+		this.Auto = new Auto(this);
+
 		this.roboticStandby = new RoboticStandby(this);
-		
-		this.state = roboticOn;
 	}
 	
-	public void setRoboticState(RoboticState state){
+	public void setRobotCtrlState(RobotCtrlState state){
 		this.state = state;
 	}
 	
-	@Override
-	public void walk() {
-		state.walk();
+	public void teleOp() {
+		state.teleOp();
 		setState(getRoboticStandby());
 	}
 
-	@Override
-	public void cook() {
-		state.cook();
+	public void Auto() {
+		state.Auto();
 		setState(getRoboticStandby());
 	}
 
-	@Override
-	public void off() {
-		state.off();
+	public RobotCtrlState getTeleOp() {
+		return teleOp;
 	}
 
-	public RoboticState getRoboticOn() {
-		return roboticOn;
+	public void setTeleOp(RobotCtrlState teleOp) {
+		this.teleOp = teleOp;
 	}
 
-	public void setRoboticOn(RoboticState roboticOn) {
-		this.roboticOn = roboticOn;
+	public RobotCtrlState getAuto() {
+		return Auto;
 	}
 
-	public RoboticState getRoboticCook() {
-		return roboticCook;
+	public void setAuto(RobotCtrlState Auto) {
+		this.Auto = Auto;
 	}
 
-	public void setRoboticCook(RoboticState roboticCook) {
-		this.roboticCook = roboticCook;
-	}
-
-	public RoboticState getRoboticOff() {
-		return roboticOff;
-	}
-
-	public void setRoboticOff(RoboticState roboticOff) {
-		this.roboticOff = roboticOff;
-	}
-
-	public RoboticState getState() {
+	public RobotCtrlState getState() {
 		return state;
 	}
 
-	public void setState(RoboticState state) {
+	public void setState(RobotCtrlState state) {
 		this.state = state;
 	}
 
-	public RoboticState getRoboticStandby() {
+	public RobotCtrlState getRoboticStandby() {
 		return roboticStandby;
 	}
 
-	public void setRoboticStandby(RoboticState roboticStandby) {
+	public void setRoboticStandby(RobotCtrlState roboticStandby) {
 		this.roboticStandby = roboticStandby;
 	}
 	

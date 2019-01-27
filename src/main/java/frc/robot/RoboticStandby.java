@@ -2,7 +2,7 @@ package frc.robot;
 
 import frc.robot.Robot1;
 
-public class RoboticStandby implements RoboticState{
+public class RoboticStandby implements RobotCtrlState{
 
 private Robot1 robot = new Robot1();
 	
@@ -10,26 +10,15 @@ private Robot1 robot = new Robot1();
 		this.robot = robot;
 	}
 	 
-	@Override
-	public void walk() {
+	public void teleOp() {
 		System.out.println("In standby state...");
-		robot.setState(robot.getRoboticOn());
+		robot.setRobotCtrlState(robot.getTeleOp());
 		System.out.println("Walking...");
 	}
 
-	@Override
-	public void cook() {
+	public void Auto() {
 		System.out.println("In standby state...");
-		robot.setRoboticState(robot.getRoboticCook());
+		robot.setRobotCtrlState(robot.getAuto());
 		System.out.println("Cooking...");
 	}
-
-	@Override
-	public void off() {
-		System.out.println("In standby state...");
-		robot.setState(robot.getRoboticOff());
-		System.out.println("Robot is switched off");
-		
-	}
-
 }

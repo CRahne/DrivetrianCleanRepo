@@ -6,15 +6,13 @@ public class TestStatePattern {
 
 	public static void main(String[] args) {
 		Robot1 robot = new Robot1();
-		robot.walk();
-		robot.cook();
-		robot.walk();
-		robot.off();
+		robot.teleOp();
+		robot.Auto();
+		robot.teleOp();
 		
-		robot.walk();
-		robot.off();
-		robot.cook();
-
+		robot.teleOp();
+		robot.Auto();
+		robot.teleOp();
 	}
 
 }

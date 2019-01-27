@@ -2,7 +2,7 @@ package frc.robot;
 
 import frc.robot.Robot1;
 
-public class RoboticOff implements RoboticState{
+public class RoboticOff implements RobotCtrlState{
 
 	private Robot1 robot;
 	
@@ -10,19 +10,12 @@ public class RoboticOff implements RoboticState{
 		this.robot = robot;
 	}
 	 
-	@Override
-	public void walk() {
+	public void teleOp() {
 		System.out.println("Walking...");
-		robot.setRoboticState(robot.getRoboticOn());
+		robot.setRobotCtrlState(robot.getTeleOp());
 	}
 
-	@Override
-	public void cook() {
+	public void Auto() {
 		System.out.println("Cannot cook at Off state.");
-	}
-
-	@Override
-	public void off() {
-		System.out.println("Already switched off...");
 	}
 }

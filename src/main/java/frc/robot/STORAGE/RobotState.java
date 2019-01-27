@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.STORAGE;
 
 public interface RobotState
 {
