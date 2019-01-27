@@ -2,7 +2,7 @@
 package frc.robot.COMMANDS;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.DriveTrain;
+import frc.robot.Subsystems.DriveTrain;;
 
 public class defAuto extends Command {
   private DriveTrain DT = new DriveTrain(null);

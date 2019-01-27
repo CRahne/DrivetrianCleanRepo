@@ -1,7 +1,7 @@
 package frc.robot.COMMANDS;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.DriveTrain;
+import frc.robot.Subsystems.DriveTrain;
 
 
 public class stateChange extends Command {

@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.COMMANDS.NullCommand;
 import frc.robot.COMMANDS.OPDRIVE;
 import frc.robot.COMMANDS.defAuto;
+import frc.robot.Subsystems.DriveTrain;
 
 /**
  * This class is the glue that binds the controls on the physical operator

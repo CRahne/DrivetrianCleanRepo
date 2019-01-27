@@ -10,7 +10,7 @@ package frc.robot.COMMANDS;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.ControlState;
-import frc.robot.DriveTrain;
+import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Robot;
 
 public class OPDRIVE extends Command {
