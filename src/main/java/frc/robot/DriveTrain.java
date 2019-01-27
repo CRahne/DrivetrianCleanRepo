@@ -8,11 +8,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-enum ControlState 
-{ 
-  TELEOP, AUTO, NULL;
-}
-
 /**
  * Add your docs here.
  */
