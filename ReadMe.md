@@ -1,0 +1,1 @@
+https://www.javacodegeeks.com/2015/09/state-design-pattern.html
